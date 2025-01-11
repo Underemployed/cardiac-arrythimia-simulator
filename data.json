@@ -1,0 +1,15 @@
+{
+  "graphs": [
+    {
+      "id": 1,
+      "name": "PQRST GRAPH",
+      "videoPath": "public/test.mp4"
+    },
+    {
+      "id": 2,
+      "name": "Another PQRST GRAPH",
+      "videoPath": "public/test.mp4"
+    }
+  ],
+  "blankVideo": "public/blank.mp4"
+}

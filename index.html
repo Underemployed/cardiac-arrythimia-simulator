@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrhythmia Simulator</title>
+    <link rel="stylesheet" href="public/main.css">
+    <link rel="stylesheet" href="public/fonts/all.min.css">
+    
+</head>
+
+<body>
+
+    <body>
+        <nav class="nav-bar light-theme">
+            <h1>ARRHYTHMIA SIMULATOR</h1>
+            <ul>
+                <li><button class="nav-element toggle" onclick="toggleMode(this)">Presentation</button></li>
+
+                <li><i class="fa-brands fa-bluetooth bluetooth-indicator nav-element"></i></li>
+                <li><i class="theme-changer fa-solid fa-moon nav-element light-theme"></i></li>
+            </ul>
+        </nav>
+
+
+        <section id="graph-selection" class="main-body">
+            <h2>GRAPH SELECTION</h2>
+            <div class="container" id="graph-container">
+                <!-- dynamic... -->
+            </div>
+        </section>
+
+<section id="video-player" class="main-body" style="display: none;">
+    <div class="video-content">
+        <h2 class="study-topic" id="video-title">HEART</h2>
+        <div id="loading-message" style="display: none;">
+            <p>Initializing simulator...</p>
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <video id="mainVideo" controls style="display: none;">
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button class="btn" onclick="goBackToGraphSelection()">Back to Graph Selection</button>
+    </div> <!-- Add this closing div -->
+</section>
+
+    <div class="send-div">
+        <img class="loader-img" src="public/loading.gif" style="height: 150px;width: auto;" />
+    </div>
+
+
+
+        <script src="public/themechanger.js"></script>
+        <script src="script.js"></script>
+       
+    </body>
+
+
+</html>
