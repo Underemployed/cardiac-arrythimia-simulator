@@ -7,7 +7,7 @@
     <title>Arrhythmia Simulator</title>
     <link rel="stylesheet" href="public/main.css">
     <link rel="stylesheet" href="public/fonts/all.min.css">
-    
+
 </head>
 
 <body>
@@ -16,9 +16,10 @@
         <nav class="nav-bar light-theme">
             <h1>ARRHYTHMIA SIMULATOR</h1>
             <ul>
+                <!-- mode toggler -->
                 <li><button class="nav-element toggle" onclick="toggleMode(this)">Presentation</button></li>
-
-                <li><i class="fa-brands fa-bluetooth bluetooth-indicator nav-element"></i></li>
+                <!-- wifi-indicator -->
+                <li><i class="fa-solid fa-wifi wifi-indicator nav-element"></i></li>
                 <li><i class="theme-changer fa-solid fa-moon nav-element light-theme"></i></li>
             </ul>
         </nav>
@@ -31,30 +32,32 @@
             </div>
         </section>
 
-<section id="video-player" class="main-body" style="display: none;">
-    <div class="video-content">
-        <h2 class="study-topic" id="video-title">HEART</h2>
-        <div id="loading-message" style="display: none;">
-            <p>Initializing simulator...</p>
-            <i class="fas fa-spinner fa-spin"></i>
+        <section id="video-player" class="main-body" style="display: none;">
+            <div class="video-content">
+                <h2 class="study-topic" id="video-title">HEART</h2>
+                <div id="loading-message" style="display: none;">
+                    <p>Initializing simulator...</p>
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <video id="mainVideo" controls style="display: none;">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <button class="btn" onclick="goBackToGraphSelection()">Back to Graph Selection</button>
+            </div> 
+        </section>
+
+        <div class="send-div">
+            <img class="loader-img" src="public/loading.gif" style="height: 150px;width: auto;" />
         </div>
-        <video id="mainVideo" controls style="display: none;">
-            <source src="" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <button class="btn" onclick="goBackToGraphSelection()">Back to Graph Selection</button>
-    </div> <!-- Add this closing div -->
-</section>
 
-    <div class="send-div">
-        <img class="loader-img" src="public/loading.gif" style="height: 150px;width: auto;" />
-    </div>
+        <div class="loader-div">
+            <img class="loader-img" src="public/loading2.gif" style="height: 150px;width: auto;" />
+        </div>
+        <!-- scripts -->
+        <script src="public/js/themechanger.js"></script>
+        <script src="public/js/script.js"></script>
 
-
-
-        <script src="public/themechanger.js"></script>
-        <script src="script.js"></script>
-       
     </body>
 
 

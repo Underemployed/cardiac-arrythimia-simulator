@@ -1,5 +1,12 @@
 let data = 0;
-const WIFI_URL = "http://192.168.4.1";
+let WIFI_URL = "http://192.168.4.1";
+// ================================================================
+// ================================================================
+// ================================================================
+WIFI_URL = "http://192.168.1.4:5000/"; // test
+// ===============================================================
+// ===============================================================
+// ===============================================================
 let isTrainingMode = false;
 let wifiConnected = false;
 let m = false;
@@ -10,7 +17,17 @@ function debug(message) {
     console.log(`[DEBUG] ${message}`);
 }
 let graphData = [];
-
+const fadeOut = (element, callback) => {
+    const fadeEffect = setInterval(() => {
+        if (element.style.opacity > 0) {
+            element.style.opacity -= 0.1;
+        } else {
+            clearInterval(fadeEffect);
+            element.style.display = 'none';
+            if (callback) callback();
+        }
+    }, 50);
+};
 // Load initial graph data
 fetch('data.json')
     .then(response => response.json())
@@ -42,31 +59,24 @@ function toggleMode(btn) {
     sendDiv.style.display = 'block';
     sendDiv.style.opacity = 1;
 
-    const fadeOut = (element, callback) => {
-        const fadeEffect = setInterval(() => {
-            if (element.style.opacity > 0) {
-                element.style.opacity -= 0.1;
-            } else {
-                clearInterval(fadeEffect);
-                element.style.display = 'none';
-                if (callback) callback();
-            }
-        }, 50);
-    };
-
     if (isTrainingMode) {
         btn.textContent = "Training";
         initializeTrainingMode().then(() => {
+            if (!wifiConnected) {
+                debug("WiFi not connected, staying in Presentation mode");
+                isTrainingMode = false;
+                btn.textContent = "Presentation";
+                document.querySelector(".wifi-indicator").style.color = "red";
+            }
             fadeOut(sendDiv);
         });
     } else {
         btn.textContent = "Presentation";
-        document.querySelector(".bluetooth-indicator").style.color = "red";
+        document.querySelector(".wifi-indicator").style.color = "red";
         debug("Presentation mode active - WiFi monitoring stopped");
         fadeOut(sendDiv);
     }
     logDebugState('Toggle Mode End');
-
 }
 
 
@@ -84,24 +94,27 @@ function stopPadMonitoring() {
 async function wifidata() {
     debug("Checking WiFi connection");
     try {
-        const response = await fetch(WIFI_URL);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const response = await fetch(WIFI_URL, { signal: controller.signal });
+        clearTimeout(timeoutId);
         const data = await response.text();
         debug(`Pad data received: ${data}`);
 
         const numericData = parseInt(data.trim());
         if (numericData === 0 || numericData === 1) {
             wifiConnected = true;
-            document.querySelector(".bluetooth-indicator").style.color = "green";
+            document.querySelector(".wifi-indicator").style.color = "green";
             return numericData;
         } else {
             wifiConnected = false;
-            document.querySelector(".bluetooth-indicator").style.color = "red";
+            document.querySelector(".wifi-indicator").style.color = "red";
             alert("Invalid response from WiFi");
             return -1;
         }
     } catch (error) {
         wifiConnected = false;
-        document.querySelector(".bluetooth-indicator").style.color = "red";
+        document.querySelector(".wifi-indicator").style.color = "red";
         alert("Please connect to WiFi!");
         debug("WiFi connection failed:", error);
         return -1;
@@ -159,9 +172,11 @@ function startPadMonitoring() {
             } catch (error) {
                 debug("WiFi connection lost");
                 wifiConnected = false;
-                document.querySelector(".bluetooth-indicator").style.color = "red";
+                document.querySelector(".wifi-indicator").style.color = "red";
                 alert("WiFi connection lost. Please reconnect!");
-                stopPadMonitoring();
+                // =================================================================
+                // stopPadMonitoring(); not sure could cause bugs later on maybe...
+                // =================================================================
             }
         }, 1000);
     });
@@ -232,23 +247,27 @@ function selectGraph(graphId) {
 
     const graph = graphData.find(g => g.id === selectedGraphId);
     if (!graph) return;
+    const loader = document.querySelector('.loader-div');
+    loader.style.display = 'block';
+    loader.style.opacity = 1;
 
     if (isTrainingMode) {
         // Show loading first
-        document.getElementById("loading-message").style.display = "block";
+
+
         document.getElementById("mainVideo").style.display = "none";
         document.getElementById("video-title").textContent = graph.name;
-
         setTimeout(() => {
             updateVideoSource(m, video.src);
             document.getElementById("loading-message").style.display = "none";
             document.getElementById("mainVideo").style.display = "block";
         }, 500);
+        fadeOut(loader);
+
     } else {
-        document.getElementById("loading-message").style.display = "block";
         document.getElementById("mainVideo").style.display = "none";
         document.getElementById("video-title").textContent = graph.name;
-
+        fadeOut(loader);
         setTimeout(() => {
             video.src = graph.videoPath;
             video.controls = true;

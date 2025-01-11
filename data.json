@@ -3,13 +3,13 @@
     {
       "id": 1,
       "name": "PQRST GRAPH",
-      "videoPath": "public/test.mp4"
+      "videoPath": "public/videos/test.mp4"
     },
     {
       "id": 2,
       "name": "Another PQRST GRAPH",
-      "videoPath": "public/test.mp4"
+      "videoPath": "public/videos/test.mp4"
     }
   ],
-  "blankVideo": "public/blank.mp4"
+  "blankVideo": "public/videos/blank.mp4"
 }
