@@ -284,6 +284,9 @@ function selectGraph(graphId) {
 
 function goBackToGraphSelection() {
     debug("Returning to graph selection.");
+    video.pause();
+    video.currentTime = 0;
+    video.src = "";
     document.getElementById("video-player").style.display = "none";
     document.getElementById("graph-selection").style.display = "flex";
     showGraphSelection();

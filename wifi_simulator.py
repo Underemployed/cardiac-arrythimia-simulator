@@ -5,7 +5,6 @@ import time
 app = Flask(__name__)
 CORS(app)
 
-# Simulate pad state
 pad_state = 0
 last_toggle = time.time()
 
