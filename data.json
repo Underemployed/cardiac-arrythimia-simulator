@@ -2,13 +2,63 @@
   "graphs": [
     {
       "id": 1,
-      "name": "PQRST GRAPH",
-      "videoPath": "public/videos/test.mp4"
+      "name": "NORMAL SINUS RHYTHM",
+      "videoPath": "public/videos/1-out.mp4"
     },
     {
       "id": 2,
-      "name": "Another PQRST GRAPH",
-      "videoPath": "public/videos/test.mp4"
+      "name": "VENTRICULAR PREMATURE BEATS",
+      "videoPath": "public/videos/2-out.mp4"
+    },
+    {
+      "id": 3,
+      "name": "VENTRICULAR FIBRILLATION",
+      "videoPath": "public/videos/3-out.mp4"
+    },
+    {
+      "id": 4,
+      "name": "VENTRICULAR TACHYCARDIA",
+      "videoPath": "public/videos/4-out.mp4"
+    },
+    {
+      "id": 5,
+      "name": "ATRIAL PREMATURE BEATS",
+      "videoPath": "public/videos/5-out.mp4"
+    },
+    {
+      "id": 6,
+      "name": "ATRIAL FIBRILLATION",
+      "videoPath": "public/videos/6-out.mp4"
+    },
+    {
+      "id": 7,
+      "name": "ATRIAL FLUTTER",
+      "videoPath": "public/videos/7-out.mp4"
+    },
+    {
+      "id": 8,
+      "name": "FIRST DEGREE HEARTBLOCK",
+      "videoPath": "public/videos/8-out.mp4"
+    },
+    {
+      "id": 9,
+      "name": "COMPLETE HEART BLOCK",
+      "videoPath": "public/videos/9-out.mp4"
+    },
+    {
+      "id": 10,
+      "name": "SECOND DEGREE HEARTBLOCK TYPE I",
+      "videoPath": "public/videos/10a-out.mp4"
+    },
+    {
+      "id": 11,
+      "name": "SECOND DEGREE HEARTBLOCK TYPE II",
+      "videoPath": "public/videos/10b-out.mp4"
+    },
+    {
+      "id": 12,
+      "name": "SUPRAVENTRICULAR TACHYCARDIA",
+      "videoPath": "public/videos/12-out.mp4"
     }
   ],
   "blankVideo": "public/videos/blank.mp4"
