@@ -17,9 +17,9 @@
   width: 100%;
   position: fixed;
   z-index: 1000;
-  background: linear-gradient(to right, rgb(13, 13, 201), rgb(54, 54, 128));
+  background: #0f0f3e;
   align-items: center;
-  border-bottom: 1px solid #00796b;
+  /* border-bottom: 1px solid #00796b; */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .nav-bar>h1{
@@ -67,8 +67,8 @@ ul {
 
 /* Card styles */
 .card {
-  height: 270px;
-  width: 480px;
+  height: 180px;
+  width: 320px;
   flex-grow: 0;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -83,7 +83,7 @@ ul {
 }
 
 .card:hover {
-  box-shadow: 3px 3px #00796b;
+  box-shadow: 4px 4px #2a263c;
   transform: scale(1.05);
 }
 .nav-element{
@@ -120,8 +120,8 @@ ul {
 }
 
 .main-body h2 {
-  margin-bottom: 20px;
-  margin-top: 50px;
+  margin-bottom: 2rem;
+  margin-top: 5rem;
 }
 
 
@@ -135,7 +135,7 @@ ul {
   border: none;
   padding: 1rem 2rem;
   background-color: rgb(0, 150, 136);
-  margin-top: 1rem;
+  margin-top: 2rem;
   font-size: 15px;
   font-style: bold;
   color: #fff;
@@ -211,7 +211,6 @@ ul {
   align-items: center;
   margin-top: 2rem;
   border-radius: 1rem;
-  /* Black background */
   width: fit-content;
 }
 

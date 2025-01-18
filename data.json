@@ -2,61 +2,73 @@
   "graphs": [
     {
       "id": 1,
+      "name": "NORMAL SINUS RHYTHM",
       "thumbnail": "public/thumbnails/id=1.png",
       "videoPath": "public/videos/1-out.mp4"
     },
     {
       "id": 2,
+      "name": "VENTRICULAR PREMATURE BEATS",
       "thumbnail": "public/thumbnails/id=2.png",
       "videoPath": "public/videos/2-out.mp4"
     },
     {
       "id": 3,
+      "name": "VENTRICULAR FIBRILLATION",
       "thumbnail": "public/thumbnails/id=3.png",
       "videoPath": "public/videos/3-out.mp4"
     },
     {
       "id": 4,
+      "name": "VENTRICULAR TACHYCARDIA",
       "thumbnail": "public/thumbnails/id=4.png",
       "videoPath": "public/videos/4-out.mp4"
     },
     {
       "id": 5,
+      "name": "ATRIAL PREMATURE BEATS",
       "thumbnail": "public/thumbnails/id=5.png",
       "videoPath": "public/videos/5-out.mp4"
     },
     {
       "id": 6,
+      "name": "ATRIAL FIBRILLATION",
       "thumbnail": "public/thumbnails/id=6.png",
       "videoPath": "public/videos/6-out.mp4"
     },
     {
       "id": 7,
+      "name": "ATRIAL FLUTTER",
       "thumbnail": "public/thumbnails/id=7.png",
       "videoPath": "public/videos/7-out.mp4"
     },
     {
       "id": 8,
+      "name": "FIRST DEGREE HEARTBLOCK",
       "thumbnail": "public/thumbnails/id=8.png",
       "videoPath": "public/videos/8-out.mp4"
     },
     {
       "id": 9,
+      "name": "COMPLETE HEART BLOCK",
       "thumbnail": "public/thumbnails/id=9.png",
       "videoPath": "public/videos/9-out.mp4"
     },
     {
       "id": 10,
+      "name": "SECOND DEGREE HEARTBLOCK TYPE I",
       "thumbnail": "public/thumbnails/id=10.png",
       "videoPath": "public/videos/10a-out.mp4"
     },
     {
       "id": 11,
+      "name": "SECOND DEGREE HEARTBLOCK TYPE II",
       "thumbnail": "public/thumbnails/id=11.png",
       "videoPath": "public/videos/10b-out.mp4"
     },
     {
       "id": 12,
+      "name": "SUPRAVENTRICULAR TACHYCARDIA",
       "thumbnail": "public/thumbnails/id=12.png",
       "videoPath": "public/videos/12-out.mp4"
     }

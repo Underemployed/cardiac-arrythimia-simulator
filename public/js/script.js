@@ -18,16 +18,9 @@ function debug(message) {
 }
 let graphData = [];
 const fadeOut = (element, callback) => {
-    const fadeEffect = setInterval(() => {
-        if (element.style.opacity > 0) {
-            element.style.opacity -= 0.1;
-        } else {
-            clearInterval(fadeEffect);
-            element.style.display = 'none';
-            if (callback) callback();
-        }
-    }, 50);
+    $(element).fadeOut(500, callback);
 };
+
 // Load initial graph data
 fetch('data.json')
     .then(response => response.json())
@@ -36,6 +29,8 @@ fetch('data.json')
         graphData = jsonData.graphs;  // Store graphs array
         debug("Graph data loaded successfully");
         showGraphSelection();
+         wifidata(false,2500); // no alert wifi check
+
     })
     .catch(error => {
         debug("Error loading graph data: " + error);
@@ -56,8 +51,7 @@ function toggleMode(btn) {
     debug(`Mode toggled to: ${isTrainingMode ? 'Training' : 'Presentation'}`);
 
     const sendDiv = document.querySelector('.send-div');
-    sendDiv.style.display = 'block';
-    sendDiv.style.opacity = 1;
+    $(sendDiv).fadeIn(500);
 
     if (isTrainingMode) {
         btn.textContent = "Training";
@@ -75,6 +69,7 @@ function toggleMode(btn) {
         document.querySelector(".wifi-indicator").style.color = "red";
         debug("Presentation mode active - WiFi monitoring stopped");
         fadeOut(sendDiv);
+        wifidata(false); // no alert wifi check
     }
     logDebugState('Toggle Mode End');
 }
@@ -91,11 +86,11 @@ function stopPadMonitoring() {
 }
 
 
-async function wifidata() {
+async function wifidata(showAlert = true, timeout = 3000) {
     debug("Checking WiFi connection");
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
         const response = await fetch(WIFI_URL, { signal: controller.signal });
         clearTimeout(timeoutId);
         const data = await response.text();
@@ -109,13 +104,13 @@ async function wifidata() {
         } else {
             wifiConnected = false;
             document.querySelector(".wifi-indicator").style.color = "red";
-            alert("Invalid response from WiFi");
+            if (showAlert) alert("Invalid response from WiFi");
             return -1;
         }
     } catch (error) {
         wifiConnected = false;
         document.querySelector(".wifi-indicator").style.color = "red";
-        alert("Please connect to WiFi!");
+        if (showAlert) alert("Please connect to WiFi!");
         debug("WiFi connection failed:", error);
         return -1;
     }
@@ -181,28 +176,44 @@ function startPadMonitoring() {
         }, 1000);
     });
 }
-
 function updateVideoSource(padState, previousVideoState) {
     logDebugState('Video Source Update');
-
 
     const graph = graphData.find(g => g.id === selectedGraphId);
     if (!graph) return previousVideoState;
 
-    const videoPath = padState ? graph.videoPath : data.blankVideo;
-    
-    // Only update if video source actually changed
-    if (previousVideoState !== videoPath) {
-        debug(`Switching video: ${padState ? 'Graph' : 'Blank'} video`);
-        video.src = videoPath;
-        video.controls = false;
-        video.loop = true;
-        video.load();
-        video.play();
+    const mainVideo = document.getElementById('mainVideo');
+    const blankVideo = document.getElementById('blankVideo');
+
+    // Set up main video if source changed
+    if (mainVideo.src !== graph.videoPath) {
+        mainVideo.src = graph.videoPath;
+        mainVideo.loop = true;
+        mainVideo.muted = true;
+        mainVideo.load();
+        mainVideo.play();
     }
 
-    return videoPath;
+    // Ensure blank video is playing
+    if (blankVideo.paused) {
+        blankVideo.play();
+    }
+
+    // Set initial display states
+    mainVideo.style.display = 'none';
+    blankVideo.style.display = 'none';
+
+    // Only show the appropriate video
+    if (padState) {
+        mainVideo.style.display = 'block';
+    } else {
+        blankVideo.style.display = 'block';
+    }
+
+    return graph.videoPath;
 }
+
+
 
 let selectedGraphId = null;
 
@@ -246,48 +257,52 @@ function selectGraph(graphId) {
 
     const graph = graphData.find(g => g.id === selectedGraphId);
     if (!graph) return;
-    const loader = document.querySelector('.loader-div');
-    loader.style.display = 'block';
-    loader.style.opacity = 1;
+
+    const loader = $('.loader-div');
+    loader.fadeIn(500);
+
+    // Hide both videos initially
+    const mainVideo = document.getElementById("mainVideo");
+    const blankVideo = document.getElementById("blankVideo");
+    mainVideo.style.display = "none";
+    blankVideo.style.display = "none";
 
     if (isTrainingMode) {
-        // Show loading first
-
-
-        document.getElementById("mainVideo").style.display = "none";
-        document.getElementById("video-title").textContent = graph.name;
+        document.getElementById("video-title").style.display = "none";
         setTimeout(() => {
             updateVideoSource(m, video.src);
             document.getElementById("loading-message").style.display = "none";
-            document.getElementById("mainVideo").style.display = "block";
         }, 500);
         fadeOut(loader);
 
     } else {
-        document.getElementById("mainVideo").style.display = "none";
+        $(document.getElementById("video-title")).fadeIn(500);
         document.getElementById("video-title").textContent = graph.name;
         fadeOut(loader);
         setTimeout(() => {
-            video.src = graph.videoPath;
-            video.controls = true;
-            video.loop = true;
-            video.load();
+            mainVideo.src = graph.videoPath;
+            mainVideo.controls = true;
+            mainVideo.loop = true;
+            mainVideo.load();
             document.getElementById("loading-message").style.display = "none";
-            document.getElementById("mainVideo").style.display = "block";
-            video.play();
+            mainVideo.style.display = "block";
+            mainVideo.play();
         }, 500);
     }
 }
 
 
 
+
 function goBackToGraphSelection() {
     debug("Returning to graph selection.");
     video.pause();
+    
+    $('#video-player').fadeOut(() => { });
     video.currentTime = 0;
     video.src = "";
-    document.getElementById("video-player").style.display = "none";
-    document.getElementById("graph-selection").style.display = "flex";
+    $('#graph-selection').fadeIn();
+
     showGraphSelection();
 }
 
