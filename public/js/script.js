@@ -3,7 +3,7 @@ let WIFI_URL = "http://192.168.4.1";
 // ================================================================
 // ================================================================
 // ================================================================
-WIFI_URL = "http://192.168.1.4:5000/"; // test
+WIFI_URL = "http://192.168.1.3:5000/"; // test
 // ===============================================================
 // ===============================================================
 // ===============================================================
@@ -176,6 +176,7 @@ function startPadMonitoring() {
         }, 1000);
     });
 }
+
 function updateVideoSource(padState, previousVideoState) {
     logDebugState('Video Source Update');
 
@@ -189,7 +190,8 @@ function updateVideoSource(padState, previousVideoState) {
     if (mainVideo.src !== graph.videoPath) {
         mainVideo.src = graph.videoPath;
         mainVideo.loop = true;
-        mainVideo.muted = true;
+        mainVideo.controls = false;
+
         mainVideo.load();
         mainVideo.play();
     }
@@ -200,14 +202,24 @@ function updateVideoSource(padState, previousVideoState) {
     }
 
     // Set initial display states
-    mainVideo.style.display = 'none';
-    blankVideo.style.display = 'none';
-
+    mainVideo.controls = false;
+    blankVideo.controls = false;
     // Only show the appropriate video
     if (padState) {
+        blankVideo.style.display = 'none';
+
         mainVideo.style.display = 'block';
+        mainVideo.muted = false;
+        blankVideo.muted = true;
+
     } else {
+        mainVideo.style.display = 'none';
+
         blankVideo.style.display = 'block';
+        mainVideo.muted = true;
+        blankVideo.muted = false;
+
+
     }
 
     return graph.videoPath;
@@ -237,14 +249,6 @@ function showGraphSelection() {
 
 
 
-function stopPadMonitoring() {
-    if (padMonitorInterval) {
-        clearInterval(padMonitorInterval);
-        padMonitorInterval = null;
-    }
-    debug("Pad monitoring stopped");
-
-}
 
 
 
@@ -270,6 +274,7 @@ function selectGraph(graphId) {
     if (isTrainingMode) {
         document.getElementById("video-title").style.display = "none";
         setTimeout(() => {
+            const mainVideo = document.getElementById("mainVideo");
             updateVideoSource(m, video.src);
             document.getElementById("loading-message").style.display = "none";
         }, 500);
@@ -283,6 +288,7 @@ function selectGraph(graphId) {
             mainVideo.src = graph.videoPath;
             mainVideo.controls = true;
             mainVideo.loop = true;
+            mainVideo.muted = false;
             mainVideo.load();
             document.getElementById("loading-message").style.display = "none";
             mainVideo.style.display = "block";
@@ -295,15 +301,16 @@ function selectGraph(graphId) {
 
 
 function goBackToGraphSelection() {
+    selectedGraphId = null;
     debug("Returning to graph selection.");
     video.pause();
-    
-    $('#video-player').fadeOut(() => { });
     video.currentTime = 0;
     video.src = "";
-    $('#graph-selection').fadeIn();
-
-    showGraphSelection();
+    $('#video-player').fadeOut(500, () => {
+        $('#video-player').fadeOut();
+        $('#graph-selection').fadeIn();
+        showGraphSelection();
+    });
 }
 
 
