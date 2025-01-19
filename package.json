@@ -1,0 +1,31 @@
+{
+  "name": "arrythmia-simulator",
+  "productName": "Arrythmia Simulator",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "A simulator for cardiac arrhythmias",
+  "author": {
+    "name": "Underemployed"
+  },
+  "build": {
+    "appId": "com.arrythmia.app",
+    "productName": "Arrythmia Simulator",
+    "mac": {
+      "category": "public.app-category.medical"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^34.0.0",
+    "electron-builder": "^25.1.8"
+  }
+}

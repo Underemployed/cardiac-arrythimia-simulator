@@ -1,5 +1,22 @@
 .vscode
-node_modules
+node_modules/
 .env
 env
 venv
+
+# Build output except installers
+dist/*
+!dist/*.exe
+!dist/*.msi
+!dist/*.dmg
+!dist/*.AppImage
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db

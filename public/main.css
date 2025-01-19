@@ -11,7 +11,7 @@
 }
 
 .nav-bar {
-  padding: 25px;
+  padding: 1rem 0.5rem;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -39,6 +39,8 @@
   padding-bottom: 100px;
 }
 
+
+
 ul {
   display: flex;
   justify-content: space-around;
@@ -64,11 +66,26 @@ ul {
 .bluetooth-connector.dark-theme {
   color: #eceff1;
 }
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* heading styles */
+.graph-menu-h2 {
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+}
+
+.study-topic {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
 
 /* Card styles */
 .card {
-  height: 180px;
-  width: 320px;
+  height: 162px;
+  width: 288px;
   flex-grow: 0;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -105,6 +122,9 @@ ul {
   align-items: center;
 } */
 
+#graph-container{
+  justify-content: center;
+}
 .image-holder video {
   max-height: 100%;
   max-width: 100%;
@@ -119,10 +139,6 @@ ul {
   width: 90%;
 }
 
-.main-body h2 {
-  margin-bottom: 2rem;
-  margin-top: 5rem;
-}
 
 
 .study-topic {
@@ -209,10 +225,11 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   border-radius: 1rem;
   width: fit-content;
 }
+
 
 video {
   padding: 0.5rem 0.5rem;
