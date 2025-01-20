@@ -92,12 +92,32 @@ ul {
   transition: transform 0.2s ease;
   border-radius: 10px;
   overflow: hidden;
+  /* for thumbnail grad */
+  line-height: 1.5;
+  background: linear-gradient(90deg, #000000 0%, #0a0a24 10%, #171453 30%, #1e1b70 60%, #282698 80%,#2e2cb3 90%, #3130be 100%);
 }
 .thumbnail {
-  width: 100%;/* Scales dynamically */
-  aspect-ratio: 16 / 9; /* Maintains the 16:9 ratio */
-  object-fit: cover;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  
 }
+/*
+for thumbnail img
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+} 
+*/
+
 
 .card:hover {
   box-shadow: 4px 4px #2a263c;

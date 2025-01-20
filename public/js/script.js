@@ -235,10 +235,11 @@ function showGraphSelection() {
         card.className = "card";
         card.id = `graph${index + 1}`;
         card.innerHTML = `
-
-    <img class="thumbnail" src="${graph.thumbnail}" ></img>
+        <div class ="thumbnail">${graph.name}</div>
 
     `;
+        // for image thumbnail
+        // <img class="thumbnail" src="${graph.thumbnail}" ></img>
         card.onclick = () => selectGraph(graph.id);
         container.appendChild(card);
     });
