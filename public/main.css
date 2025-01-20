@@ -4,7 +4,13 @@
   padding: 0;
   font-family: Arial, sans-serif;
   color: #263238;
+  -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
 }
+
 
 .nav-element {
   background-color: #ffffff;
