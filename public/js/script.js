@@ -329,14 +329,20 @@ video.addEventListener('loadeddata', function () {
 
 
 function logDebugState(location) {
-    debug(`
-=== Debug Log from ${location} ===
-Video Details:
-- Last Known Video: ${video.src}
-- Last Pad State: ${m}
-- Current Mode: ${isTrainingMode}
-- Selected Graph: ${selectedGraphId}
-Current Graph Info: ${JSON.stringify(graphData.find(g => g.id === selectedGraphId))}
-===========================
-`);
+//     debug(`
+// === Debug Log from ${location} ===
+// Video Details:
+// - Last Known Video: ${video.src}
+// - Last Pad State: ${m}
+// - Current Mode: ${isTrainingMode}
+// - Selected Graph: ${selectedGraphId}
+// Current Graph Info: ${JSON.stringify(graphData.find(g => g.id === selectedGraphId))}
+// ===========================
+    // `);
+    
 }
+
+// window.addEventListener('resize', () => {
+//     var w = window.innerWidth;
+//     debug(`Window width changed: ${w}`);
+// });

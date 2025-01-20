@@ -175,7 +175,7 @@ for thumbnail img
   font-size: 15px;
   font-style: bold;
   color: #fff;
-  background: linear-gradient(to right, rgb(13, 13, 201), rgb(54, 54, 128));
+  background: linear-gradient(90deg, #000000 0%, #0a0a24 10%, #171453 30%, #1e1b70 60%, #282698 80%, #2e2cb3 90%, #3130be 100%);
   border: 15px;
 }
 
@@ -264,6 +264,25 @@ video {
   video {
     height: 40vh;
     width: auto;
+  }
+}
+@media (max-width: 600px) {
+  video {
+    height: 40vh;
+    width: auto;
+  }
+}
+
+@media (max-width: 800px) {
+  h1 {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-left: auto;
   }
 }
 
