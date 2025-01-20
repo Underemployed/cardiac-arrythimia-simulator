@@ -150,6 +150,9 @@ for thumbnail img
   max-width: 100%;
   object-fit: cover;
 }
+.sub{
+  display: none;
+}
 
 .container {
   display: flex;
@@ -268,21 +271,19 @@ video {
 }
 @media (max-width: 600px) {
   video {
-    height: 40vh;
-    width: auto;
+    width: 90%;
   }
 }
+
 
 @media (max-width: 800px) {
-
-  ul{
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
-}
-@media (max-width: 355px) {
   h1 {
     display: none;
+    padding-left: 0.5rem;
+    font-size: 2rem;
+  }
+  .sub{
+    display: block;
   }
   ul{
     margin-right: 1rem;

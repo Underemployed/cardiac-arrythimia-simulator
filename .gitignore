@@ -4,6 +4,7 @@ node_modules/
 env
 venv
 packages-lock.json
+public/blank.mp4
 
 # Build output except installers
 dist/*

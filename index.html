@@ -15,6 +15,7 @@
     <body>
         <nav class="nav-bar">
             <h1>ARRHYTHMIA SIMULATOR</h1>
+            <h1 class="sub">AS</h1>
             <ul>
                 <!-- mode toggler -->
                 <li><button class="nav-element toggle" onclick="toggleMode(this)">Presentation</button></li>
@@ -43,7 +44,8 @@
                     Your browser does not support the video tag.
                 </video>
             <video id="blankVideo" loop style="display: none;">
-                <source src="public/videos/blank.mp4" type="video/mp4">
+                <source src="" type="video/mp4">
+                <!-- <source src="public/videos/blank.mp4" type="video/mp4"> -->
                 Your browser does not support the video tag.
             </video>
 
@@ -59,7 +61,6 @@
             <img class="loader-img" src="public/loading2.gif" style="height: 150px;width: auto;" />
         </div>
         <!-- scripts -->
-        <script src="public/js/themechanger.js"></script>
         <script src="public/js/jq.js"></script>
         <script src="public/js/script.js"></script>
 
