@@ -274,8 +274,18 @@ video {
 }
 
 @media (max-width: 800px) {
+
+  ul{
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+@media (max-width: 355px) {
   h1 {
     display: none;
+  }
+  ul{
+    margin-right: 1rem;
   }
 
   ul {
