@@ -3,6 +3,7 @@ node_modules/
 .env
 env
 venv
+packages-lock.json
 
 # Build output except installers
 dist/*

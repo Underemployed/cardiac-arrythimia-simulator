@@ -8,8 +8,12 @@
     "name": "Underemployed"
   },
   "build": {
+    "compression": "maximum",
+    "asar": true,
     "appId": "com.arrythmia.app",
     "productName": "Arrythmia Simulator",
+    "removePackageScripts": true,
+    "removePackageKeywords": true,
     "mac": {
       "category": "public.app-category.medical"
     },
@@ -18,14 +22,39 @@
     },
     "linux": {
       "target": "AppImage"
-    }
+    },
+    "files": [
+      "!dist/**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/.bin",
+      "!**/node_modules/**/test",
+      "!**/node_modules/**/tests",
+      "!**/node_modules/**/__tests__",
+      "!**/node_modules/**/example",
+      "!**/node_modules/**/examples",
+      "!**/node_modules/**/demo",
+      "!**/node_modules/**/demos",
+      "!**/node_modules/**/doc",
+      "!**/node_modules/**/docs",
+      "!**/node_modules/**/spec",
+      "!**/node_modules/**/benchmark",
+      "!**/node_modules/**/benchmarks",
+      "!**/node_modules/**/coverage",
+      "!wifi_simulator.py",
+      "!TEST",
+      "!.gitignore",
+      "!.git",
+      "!requirements.txt",
+      "!env/*",
+      "!.vscode"
+    ]
   },
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^34.0.0",
+    "electron": "^25.0.0",
     "electron-builder": "^25.1.8"
   }
 }
