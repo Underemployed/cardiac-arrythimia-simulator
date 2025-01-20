@@ -1,21 +1,13 @@
-        basically what we want is a arrythimia simulator 
-        --
-        to go into training mode wifi must be connected PROMPT TO CONNECT 
-        --
-        In training mode
-        when both pads are connected we receive 1 and we display graph assosciated with it
-        else we display blank video
-        if wifi not connected we prompt to connect to wifi
+# run these commands
+pip install -r requirements.txt
+npm install
 
-        --
-        in presentation mode
-        we allow professor to play the video and show their students the video
-        --
-        in graph selection
-        the cards should show a video player that that can be viewed if needed with title
-        --
-         wifi sends  0 and 1 
-         1 means both pads engaged 
-         0 means otherwise
-         no response means wifi not connected 
-         -- 
+# run the app
+npm start
+
+# run wifi_simulator.py
+python wifi_simulator.py
+
+
+# installer will be gen within dist folder
+npm run build

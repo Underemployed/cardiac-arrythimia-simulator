@@ -6,7 +6,7 @@ venv
 
 # Build output except installers
 dist/*
-!dist/*.exe
+# !dist/*.exe
 !dist/*.msi
 !dist/*.dmg
 !dist/*.AppImage
