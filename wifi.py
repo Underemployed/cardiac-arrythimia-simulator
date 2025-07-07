@@ -16,6 +16,7 @@ def get_pad_state():
     current_time = time.time()
     if current_time - last_toggle > random.uniform(3, 7):
         pad_state = 1 if pad_state == 0 else 0
+        # pad_state = 1 # infinite training mode
         last_toggle = current_time
     
     return str(pad_state)

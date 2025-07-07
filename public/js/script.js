@@ -3,7 +3,7 @@ let WIFI_URL = "http://192.168.4.1";
 // ================================================================
 // ================================================================
 // ================================================================
-// WIFI_URL = "http://192.168.1.3:5000/"; // test
+// WIFI_URL = "http://192.168.1.2:5000/"; // test
 // ===============================================================
 // ===============================================================
 // ===============================================================
@@ -12,6 +12,11 @@ let wifiConnected = false;
 let m = false;
 const video = document.getElementById("mainVideo");
 let padMonitorInterval = null;
+
+// Global variables to track video state
+let currentActiveVideo = null;
+let isVideoManuallyPaused = false;
+
 
 function debug(message) {
     console.log(`[DEBUG] ${message}`);
@@ -142,7 +147,7 @@ function startPadMonitoring() {
         }
 
         padMonitorInterval = setInterval(async () => {
-            if (!isTrainingMode) {
+            if (!isTrainingMode || isVideoManuallyPaused) {
                 stopPadMonitoring();
                 return;
             }
@@ -177,6 +182,7 @@ function startPadMonitoring() {
     });
 }
 
+
 function updateVideoSource(padState, previousVideoState) {
     logDebugState('Video Source Update');
 
@@ -191,37 +197,46 @@ function updateVideoSource(padState, previousVideoState) {
         mainVideo.src = graph.videoPath;
         mainVideo.loop = true;
         mainVideo.controls = false;
-
         mainVideo.load();
         mainVideo.play();
+        isVideoManuallyPaused = false; // Reset pause state when loading new video
     }
-
-  
 
     // Set initial display states
     mainVideo.controls = false;
     blankVideo.controls = false;
-    // Only show the appropriate video
+
+    // Only show the appropriate video and respect manual pause state
     if (padState) {
         blankVideo.style.display = 'none';
-
         mainVideo.style.display = 'block';
         mainVideo.muted = false;
         blankVideo.muted = true;
+        currentActiveVideo = mainVideo;
 
+        // Only auto-play if not manually paused
+        if (!isVideoManuallyPaused && mainVideo.paused) {
+            mainVideo.play();
+        } else if (isVideoManuallyPaused && !mainVideo.paused) {
+            mainVideo.pause();
+        }
     } else {
         mainVideo.style.display = 'none';
-
         blankVideo.style.display = 'block';
         mainVideo.muted = true;
         blankVideo.muted = false;
+        currentActiveVideo = blankVideo;
 
-
+        // Only auto-play if not manually paused
+        if (!isVideoManuallyPaused && blankVideo.paused) {
+            blankVideo.play();
+        } else if (isVideoManuallyPaused && !blankVideo.paused) {
+            blankVideo.pause();
+        }
     }
 
     return graph.videoPath;
 }
-
 
 
 let selectedGraphId = null;
@@ -287,6 +302,8 @@ function selectGraph(graphId) {
             document.getElementById("loading-message").style.display = "none";
             mainVideo.style.display = "block";
             mainVideo.play();
+            currentActiveVideo = mainVideo;
+            isVideoManuallyPaused = false;
         }, 500);
     }
 }
@@ -300,6 +317,8 @@ function goBackToGraphSelection() {
     video.pause();
     video.currentTime = 0;
     video.src = "";
+    currentActiveVideo = null;
+    isVideoManuallyPaused = false; 
     $('#video-player').fadeOut(500, () => {
         $('#video-player').fadeOut();
         $('#graph-selection').fadeIn();
@@ -342,3 +361,68 @@ function logDebugState(location) {
 //     var w = window.innerWidth;
 //     debug(`Window width changed: ${w}`);
 // });
+
+
+
+
+//  video shit
+// Function to get the currently visible/active video
+function getCurrentActiveVideo() {
+    const mainVideo = document.getElementById('mainVideo');
+    const blankVideo = document.getElementById('blankVideo');
+
+    if (mainVideo.style.display !== 'none' && mainVideo.src) {
+        return mainVideo;
+    } else if (blankVideo.style.display !== 'none' && blankVideo.src) {
+        return blankVideo;
+    }
+    return null;
+}
+
+
+
+// Function to toggle play/pause on the active video
+function toggleVideoPlayPause() {
+    const activeVideo = getCurrentActiveVideo();
+
+    if (!activeVideo && isTrainingMode && selectedGraphId && !isVideoManuallyPaused) {
+        debug("No active video found to pause/play");
+        debug("Video paused  EMPTY");
+
+        isVideoManuallyPaused = true;
+        stopPadMonitoring();
+        return;
+    }
+    if (!activeVideo && isTrainingMode && selectedGraphId && isVideoManuallyPaused) {
+        isVideoManuallyPaused = false;
+        startPadMonitoring();
+        debug("Video resumed EMPTY");
+        return;
+    }
+
+    if (activeVideo.paused) {
+        activeVideo.play();
+        isVideoManuallyPaused = false;
+        if (isTrainingMode) startPadMonitoring();
+        debug("Video resumed");
+    } else {
+        activeVideo.pause();
+        isVideoManuallyPaused = true;
+        debug("Video paused");
+    }
+}
+
+
+// Add event listener for spacebar key press
+document.addEventListener('keydown', function (event) {
+    // Check if spacebar was pressed (keyCode 32 or event.code 'Space')
+    if (event.code === 'Space' || event.keyCode === 32) {
+        // Prevent default spacebar behavior (scrolling page)
+        event.preventDefault();
+
+        // Only allow spacebar control when a graph is selected
+        if (selectedGraphId) {
+            toggleVideoPlayPause();
+        }
+    }
+});
