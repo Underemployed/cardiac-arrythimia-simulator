@@ -34,7 +34,7 @@ fetch('data.json')
         graphData = jsonData.graphs;  // Store graphs array
         debug("Graph data loaded successfully");
         showGraphSelection();
-         wifidata(false,2500); // no alert wifi check
+        wifidata(false,2500); // no alert wifi check
 
     })
     .catch(error => {
@@ -65,6 +65,7 @@ function toggleMode(btn) {
                 debug("WiFi not connected, staying in Presentation mode");
                 isTrainingMode = false;
                 btn.textContent = "Presentation";
+                showGraphSelection();
                 document.querySelector(".wifi-indicator").style.color = "red";
             }
             fadeOut(sendDiv);
@@ -241,16 +242,30 @@ function updateVideoSource(padState, previousVideoState) {
 
 let selectedGraphId = null;
 
+
 function showGraphSelection() {
     debug("Showing graph selection screen.");
     const container = document.querySelector("#graph-selection .container");
     container.innerHTML = "";
+    
     graphData.forEach((graph, index) => {
         const card = document.createElement("div");
         card.className = "card";
         card.id = `graph${index + 1}`;
-        card.innerHTML = `
-        <div class ="thumbnail">${graph.name}</div>`;
+        
+        // Show title only in presentation mode, show key in training mode
+        if (isTrainingMode) {
+            const displayChar = getVideoDisplayChar(index);
+            card.innerHTML = `
+                <div class="thumbnail">
+                    <div class="training-number">${displayChar}</div>
+                     <!-- <div class="training-hint">Press ${displayChar}</div> -->
+                </div>`;
+        } else {
+            card.innerHTML = `
+                <div class="thumbnail">${graph.name}</div>`;
+        }
+        
         card.onclick = () => selectGraph(graph.id);
         container.appendChild(card);
     });
@@ -413,16 +428,249 @@ function toggleVideoPlayPause() {
 }
 
 
-// Add event listener for spacebar key press
 document.addEventListener('keydown', function (event) {
-    // Check if spacebar was pressed (keyCode 32 or event.code 'Space')
+    // Handle spacebar for video pause/play
     if (event.code === 'Space' || event.keyCode === 32) {
-        // Prevent default spacebar behavior (scrolling page)
         event.preventDefault();
-
-        // Only allow spacebar control when a graph is selected
         if (selectedGraphId) {
             toggleVideoPlayPause();
         }
+        return;
+    }
+
+    // Handle keyboard keys for video selection in training mode
+    if (isTrainingMode && selectedGraphId === null) {
+        // event.preventDefault();
+        handleKeyboardSelection(event.code || event.key);
     }
 });
+
+
+
+
+// Function to get the display character for a video index
+function getVideoDisplayChar(index) {
+    if (index < 10) {
+        return (index + 1).toString(); // Numbers 1-9, 0
+    } else {
+        return String.fromCharCode(65 + (index - 10)); // Letters A-Z
+    }
+}
+
+function handleKeyboardSelection(keyPressed) {
+    // Only work in training mode and when on graph selection screen
+    if (!isTrainingMode || selectedGraphId !== null) {
+        return;
+    }
+
+    let videoIndex = -1;
+
+    // Map keyboard keys to video indices (supports up to 36 videos)
+    switch (keyPressed.toUpperCase()) {
+        // Numbers 1-9 (videos 1-9)
+        case '1':
+        case 'DIGIT1':
+        case 'NUMPAD1':
+            videoIndex = 0;
+            break;
+        case '2':
+        case 'DIGIT2':
+        case 'NUMPAD2':
+            videoIndex = 1;
+            break;
+        case '3':
+        case 'DIGIT3':
+        case 'NUMPAD3':
+            videoIndex = 2;
+            break;
+        case '4':
+        case 'DIGIT4':
+        case 'NUMPAD4':
+            videoIndex = 3;
+            break;
+        case '5':
+        case 'DIGIT5':
+        case 'NUMPAD5':
+            videoIndex = 4;
+            break;
+        case '6':
+        case 'DIGIT6':
+        case 'NUMPAD6':
+            videoIndex = 5;
+            break;
+        case '7':
+        case 'DIGIT7':
+        case 'NUMPAD7':
+            videoIndex = 6;
+            break;
+        case '8':
+        case 'DIGIT8':
+        case 'NUMPAD8':
+            videoIndex = 7;
+            break;
+        case '9':
+        case 'DIGIT9':
+        case 'NUMPAD9':
+            videoIndex = 8;
+            break;
+        case '0':
+        case 'DIGIT0':
+        case 'NUMPAD0':
+            videoIndex = 9;
+            break;
+        // Letters A-Z (videos 11-36)
+        case 'A':
+        case 'DIGITA':
+        case 'KEYA':
+            videoIndex = 10;
+            break;
+        case 'B':
+        case 'KEYB':
+            videoIndex = 11;
+            break;
+        case 'C':
+        case 'KEYC':
+            videoIndex = 12;
+            break;
+        case 'D':
+        case 'KEYD':
+            videoIndex = 13;
+            break;
+        case 'E':
+        case 'KEYE':
+            videoIndex = 14;
+            break;
+        case 'F':
+        case 'KEYF':
+            videoIndex = 15;
+            break;
+        case 'G':
+        case 'KEYG':
+            videoIndex = 16;
+            break;
+        case 'H':
+        case 'KEYH':
+            videoIndex = 17;
+            break;
+        case 'I':
+        case 'KEYI':
+            videoIndex = 18;
+            break;
+        case 'J':
+        case 'KEYJ':
+            videoIndex = 19;
+            break;
+        case 'K':
+        case 'KEYK':
+            videoIndex = 20;
+            break;
+        case 'L':
+        case 'KEYL':
+            videoIndex = 21;
+            break;
+        case 'M':
+        case 'KEYM':
+            videoIndex = 22;
+            break;
+        case 'N':
+        case 'KEYN':
+            videoIndex = 23;
+            break;
+        case 'O':
+        case 'KEYO':
+            videoIndex = 24;
+            break;
+        case 'P':
+        case 'KEYP':
+            videoIndex = 25;
+            break;
+        case 'Q':
+        case 'KEYQ':
+            videoIndex = 26;
+            break;
+        case 'R':
+        case 'KEYR':
+            videoIndex = 27;
+            break;
+        case 'S':
+        case 'KEYS':
+            videoIndex = 28;
+            break;
+        case 'T':
+        case 'KEYT':
+            videoIndex = 29;
+            break;
+        case 'U':
+        case 'KEYU':
+            videoIndex = 30;
+            break;
+        case 'V':
+        case 'KEYV':
+            videoIndex = 31;
+            break;
+        case 'W':
+        case 'KEYW':
+            videoIndex = 32;
+            break;
+        case 'X':
+        case 'KEYX':
+            videoIndex = 33;
+            break;
+        case 'Y':
+        case 'KEYY':
+            videoIndex = 34;
+            break;
+        case 'Z':
+        case 'KEYZ':
+            videoIndex = 35;
+            break;
+        default:
+            return; // Invalid key
+    }
+
+    // Check if the video index exists
+    if (videoIndex >= 0 && videoIndex < graphData.length) {
+        const selectedGraph = graphData[videoIndex];
+        debug(`Keyboard selection: Key ${keyPressed} -> Video ${videoIndex + 1} (${selectedGraph.name})`);
+        selectGraph(selectedGraph.id);
+    } else {
+        debug(`Invalid keyboard selection: Key ${keyPressed} -> Index ${videoIndex} (out of range)`);
+    }
+}
+
+
+
+const trainingModeStyles = `
+<style>
+.training-number {
+    font-size: 3em;
+    font-weight: bold;
+    color:rgba(242, 242, 242, 0.61);
+    margin-bottom: 10px;
+}
+
+.training-hint {
+    font-size: 0.9em;
+    color: #666;
+    font-style: italic;
+}
+
+.card .thumbnail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+</style>
+`;
+
+
+
+if (!document.querySelector('#training-mode-styles')) {
+    const styleElement = document.createElement('div');
+    styleElement.id = 'training-mode-styles';
+    styleElement.innerHTML = trainingModeStyles;
+    document.head.appendChild(styleElement);
+}
