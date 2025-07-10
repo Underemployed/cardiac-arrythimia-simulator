@@ -5,8 +5,8 @@ const char* password = "12345678";
 
 WiFiServer server(80);
 
-const int touchSensor1 = D1;
-const int touchSensor2 = D2;
+const int touchSensor1 = D0;
+const int touchSensor2 = D1;
 
 void setup() {
   Serial.begin(115200);

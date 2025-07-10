@@ -33,7 +33,47 @@
 .nav-bar>h1{
   color: #fff;
 }
+.togglebutton {
+  position: relative;
+  overflow: hidden;
+  width: 170px;
+  height: 50px;
+  background-color: #fff;
+  z-index: 1;
+  transition: all 0.4s;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.13rem;
+  color: #7978c7;
+  font-weight: bold;
+  outline: transparent;
+}
 
+/* Background fill effect */
+.togglebutton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;  /* Start off-screen to the left */
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  transition: left 0.4s ease-in-out;  
+  z-index: -1;
+}
+
+.togglebutton:hover::before {
+  left: 0; 
+}
+
+.togglebutton:hover {
+  color: white; 
+}
+
+.togglebutton:hover {
+  transform: scale(1.1); 
+}
 .main-body {
   margin-top: 90px;
   width: 100%;
