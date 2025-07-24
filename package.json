@@ -47,7 +47,11 @@
       "!requirements.txt",
       "!env/*",
       "!public/videos/blank.mp4",
-      "!.vscode"
+      "!.vscode",
+      "!wifi.py",
+      "!node*/*",
+      "!node*/"
+
     ]
   },
   "scripts": {
@@ -55,7 +59,7 @@
     "build": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^25.0.0",
+    "electron": "^37.2.4",
     "electron-builder": "^25.1.8"
   }
 }

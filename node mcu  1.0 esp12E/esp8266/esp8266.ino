@@ -5,28 +5,25 @@ const char* password = "12345678";
 
 WiFiServer server(80);
 
-const int touchSensor1 = D0;
-const int touchSensor2 = D1;
+// We're now using analog sensing (voltage divider with 2 FSRs)
+const int fsrPin = A0;  // Analog pin for voltage divider output
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println();
-  
-  pinMode(touchSensor1, INPUT);
-  pinMode(touchSensor2, INPUT);
-  
-  IPAddress local_ip(192, 168, 4, 1);      
-  IPAddress gateway(192, 168, 4, 1);      
-  IPAddress subnet(255, 255, 255, 0);      
-  
+
+  IPAddress local_ip(192, 168, 4, 1);
+  IPAddress gateway(192, 168, 4, 1);
+  IPAddress subnet(255, 255, 255, 0);
+
   WiFi.softAPConfig(local_ip, gateway, subnet);
-  
+
   Serial.println("Configuring access point...");
   WiFi.softAP(ssid, password);
-  
+
   Serial.print("Access Point IP Address: ");
   Serial.println(local_ip);
-  
+
   server.begin();
   Serial.println("Web server started.");
 }
@@ -36,39 +33,42 @@ void loop() {
   if (!client) {
     return;
   }
-  
+
   Serial.println("New client connected.");
   while (!client.available()) {
     delay(1);
   }
-  
+
   String request = client.readStringUntil('\r');
   Serial.println(request);
   client.flush();
-  
-  int sensor1State = digitalRead(touchSensor1);
-  int sensor2State = digitalRead(touchSensor2);
-  
-  // Debug output for sensor states
-  Serial.print("Sensor 1 State: ");
-  Serial.println(sensor1State);
-  Serial.print("Sensor 2 State: ");
-  Serial.println(sensor2State);
-  
-  int output = (sensor1State == HIGH && sensor2State == HIGH) ? 1 : 0;
-  
-  // Debug output for final output
+
+  // Read analog value from voltage divider connected to two parallel FSRs
+  int analogValue = analogRead(fsrPin);
+
+  // Debug: Show the analog reading
+  Serial.print("Analog Read: ");
+  Serial.println(analogValue);
+
+  // Adjust this threshold based on your experimental values
+  int output = (analogValue > 300) ? 1 : 0;  // 1 if both pressed, else 0
+
+  // Debug output
   Serial.print("Output Value: ");
   Serial.println(output);
-  
+
+  // Send HTTP response
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/plain");
   client.println("Access-Control-Allow-Origin: *");
   client.println("Connection: close");
   client.println();
   client.println(output);
-  
+
   delay(1);
   Serial.println("Client disconnected.");
-  Serial.println("------------------------");  // Separator for readability
+  Serial.println("------------------------");
 }
+
+
+
