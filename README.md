@@ -1,6 +1,12 @@
 # Arrhythmia Training Simulator
 
-A medical training tool for teaching arrhythmia diagnosis using simulated ECG patterns.
+A medical training tool for teaching arrhythmia diagnosis using simulated ECG patterns. This simulator was designed specifically for medical students to practice arrhythmia diagnosis in a controlled environment.
+
+## Download
+
+Get the latest installer from the [Releases page](https://github.com/nithilprasad/Arryhthmia_simulator/releases).
+
+
 
 ## Features
 - Training mode with real-time ECG simulation
@@ -21,31 +27,42 @@ A medical training tool for teaching arrhythmia diagnosis using simulated ECG pa
 pip install -r req.txt
 npm install
 
+# Run WiFi simulator
+python wifi.py
+
 # Start the application
 npm start
 
-# Run WiFi simulator
-python wifi.py
 
 # Generate installer (outputs to dist folder)
 npm run build
 ```
 
 ## Usage
-1. Connect to the wifi of the simulator
+1. Connect to the wifi or the simulator
 2. Launch application
 3. Choose training or presentation mode
 4. For training mode:
     - Connect both pads to see ECG patterns
     - The title of arrythimia pattern are hidden in training mode
-    - letter and numbers are used to select pattern for training purposes
+5. Press `CTRL+M` to toggle audio
+6. Use `SPACEBAR` to pause/resume ECG patterns
+7. Press `CTRL+F` to toggle fullscreen mode 
+8. `ESC` to return to graph selection
 
-HW uses esp + pressure pads hidden inside the manquin ..
-this was creared for the sole purpose of training medical students using a simulation tool
+
+
+## Hardware Details
+- ESP for WiFi communication
+- Pressure pads embedded in mannequin
+- Binary signal processing for real-time feedback
+- Purpose-built medical simulation training tool
+- Designed for hands-on clinical education
 
 ## Technical Notes
 - WiFi communication uses binary signals (0/1)
 - Default simulator IP: 192.168.4.1 can be updated in `public/src/script.js`
-- Developed for Bio Medical Technology Wing SCTIMST.
+- Developed for Bio Medical Technology Wing SCTIMST
+
 
 
