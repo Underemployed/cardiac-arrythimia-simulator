@@ -38,9 +38,10 @@ npm run build
 4. For training mode:
     - Connect both pads to see ECG patterns
     - The title of arrythimia pattern are hidden in training mode
-5. Use `SPACEBAR` to pause/resume ECG patterns
-6. Press `CTRL+M` to toggle audio
-7. `ESC` to return to graph selection.
+5. Press `CTRL+M` to toggle audio
+6. Use `SPACEBAR` to pause/resume ECG patterns
+7. Press `CTRL+F` to toggle fullscreen mode 
+8. `ESC` to return to graph selection
 
 HW uses esp + pressure pads hidden inside the manquin ..
 this was creared for the sole purpose of training medical students using a simulation tool

@@ -24,12 +24,14 @@
             win.setMenu(null)
             win.maximize()
             win.show()
+        })
+
         win.on('focus', () => {
             globalShortcut.register('CommandOrControl+M', () => {
-            win.webContents.setAudioMuted(!win.webContents.isAudioMuted())
+                win.webContents.setAudioMuted(!win.webContents.isAudioMuted())
             })
             globalShortcut.register('CommandOrControl+F', () => {
-            win.setFullScreen(!win.isFullScreen())
+                win.setFullScreen(!win.isFullScreen())
             })
         })
 
@@ -37,6 +39,7 @@
             globalShortcut.unregister('CommandOrControl+M')
             globalShortcut.unregister('CommandOrControl+F')
         })    
+        
     }
 
     app.on('will-quit', () => {
