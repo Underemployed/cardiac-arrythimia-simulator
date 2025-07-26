@@ -24,22 +24,19 @@
             win.setMenu(null)
             win.maximize()
             win.show()
-        })
-
         win.on('focus', () => {
-            // globalShortcut.register('M', () => {
-            //     win.webContents.setAudioMuted(!win.webContents.isAudioMuted())
-            // })
             globalShortcut.register('CommandOrControl+M', () => {
-                win.webContents.setAudioMuted(!win.webContents.isAudioMuted())
+            win.webContents.setAudioMuted(!win.webContents.isAudioMuted())
+            })
+            globalShortcut.register('CommandOrControl+F', () => {
+            win.setFullScreen(!win.isFullScreen())
             })
         })
 
         win.on('blur', () => {
-            // globalShortcut.unregister('M')
             globalShortcut.unregister('CommandOrControl+M')
-        })
-        
+            globalShortcut.unregister('CommandOrControl+F')
+        })    
     }
 
     app.on('will-quit', () => {
