@@ -47,3 +47,5 @@ this was creared for the sole purpose of training medical students using a simul
 - WiFi communication uses binary signals (0/1)
 - Default simulator IP: 192.168.4.1 can be updated in `public/src/script.js`
 - Developed for Bio Medical Technology Wing SCTIMST.
+
+

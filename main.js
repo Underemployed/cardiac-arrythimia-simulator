@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, globalShortcut } = require('electron')
 const path = require('path')
 
 function createWindow() {
@@ -13,13 +13,31 @@ function createWindow() {
         menuBarVisible: false,
         frame: true,
         useContentSize: true,
+       
     })
 
     win.maximize()
-
     win.setMenu(null)
     win.loadFile('index.html')
+
+    win.on('focus', () => {
+        globalShortcut.register('M', () => {
+            win.webContents.setAudioMuted(!win.webContents.isAudioMuted())
+        })
+        globalShortcut.register('CommandOrControl+M', () => {
+            win.webContents.setAudioMuted(!win.webContents.isAudioMuted())
+        })
+    })
+
+    win.on('blur', () => {
+        globalShortcut.unregister('M')
+        globalShortcut.unregister('CommandOrControl+M')
+    })
 }
+
+app.on('will-quit', () => {
+    globalShortcut.unregisterAll()
+})
 
 app.whenReady().then(() => {
     createWindow()
@@ -30,7 +48,6 @@ app.whenReady().then(() => {
         }
     })
 })
-
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
