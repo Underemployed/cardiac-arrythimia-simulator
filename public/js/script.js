@@ -437,6 +437,13 @@ document.addEventListener('keydown', function (event) {
         }
         return;
     }
+    if (event.code === 'Escape' || event.keyCode === 27) {
+        event.preventDefault();
+        if (selectedGraphId) {
+            goBackToGraphSelection();
+        }
+        return;
+    }
 
     // Handle keyboard keys for video selection in training mode
     if (isTrainingMode && selectedGraphId === null) {
