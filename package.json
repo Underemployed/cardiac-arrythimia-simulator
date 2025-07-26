@@ -14,6 +14,7 @@
     "productName": "Arrythmia Simulator",
     "removePackageScripts": true,
     "removePackageKeywords": true,
+    "icon": "./public/img/icons/android-chrome-512x512.png",
     "mac": {
       "category": "public.app-category.medical"
     },
@@ -49,7 +50,9 @@
       "!public/videos/blank.mp4",
       "!.vscode",
       "!wifi.py",
+      "!node mcu  1.0 esp12E/esp8266/esp8266.ino",
       "!node*/*",
+      "!arrythimia demo.mp4",
       "!node*/"
 
     ]

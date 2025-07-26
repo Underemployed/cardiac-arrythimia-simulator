@@ -25,7 +25,7 @@ npm install
 npm start
 
 # Run WiFi simulator
-python wifi_simulator.py
+python wifi.py
 
 # Generate installer (outputs to dist folder)
 npm run build
@@ -45,5 +45,5 @@ this was creared for the sole purpose of training medical students using a simul
 
 ## Technical Notes
 - WiFi communication uses binary signals (0/1)
-- Default simulator IP: 192.168.4.1 can be updated in public/src/script.js
-- Developed for medical training institutions
+- Default simulator IP: 192.168.4.1 can be updated in `public/src/script.js`
+- Developed for Bio Medical Technology Wing SCTIMST.
