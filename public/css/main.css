@@ -194,6 +194,7 @@ for thumbnail img
 
 #graph-container{
   justify-content: center;
+  padding-bottom: 2rem;
 }
 .image-holder video {
   max-height: 100%;
